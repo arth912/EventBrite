@@ -1,0 +1,227 @@
+{% load static%}
+{% static "images" as baseUrl %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="stylesheet" href="st.css">
+    --><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <title>EVENTBRITE</title>
+    <style>
+        .main{
+            font-family: Century;
+            background:white;
+        }
+        hr{
+                margin-top: 20px;
+                border: 2px solid black;
+        }
+        ul li{
+                display: inline-grid;
+        }
+        #logo{
+              margin-left: 100px;
+              font-family:cursive;
+                color: red;
+                font-size: 20px;
+              }
+           input[type=text]{
+                border: 0px;
+                width: 100px;
+            }
+            .dropbtn {
+              background-color:white;
+              color: grey;
+              padding: 16px;
+              font-weight: bold;
+              border: none;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              font-size: 14px;
+            }
+            
+            .dropdown {
+              position: relative;
+              display: inline-block;
+              
+            }
+            
+            .dropdown-content {
+              display: none;
+              position: absolute;
+              background-color: #f1f1f1;
+              min-width: 160px;
+              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+              z-index: 1;
+            }
+            
+            .dropdown-content a {
+              color: black;
+              padding: 12px 16px;
+              text-decoration: none;
+              display: block;
+            }
+            
+            .dropdown-content a:hover {background-color: #ddd;}
+            
+            .dropdown:hover .dropdown-content {display: block;}
+            
+            .space{
+                width: 400px;
+            }
+            .space1{
+                width: 30px;
+            }
+            #browseevent{
+                text-decoration: none;
+                color: gray;
+                width: 100px;
+            }
+            #more{
+                border: 0px;
+                color: grey;
+                font-weight:bold;
+             
+            }
+            table{
+                color: grey;
+                font-size: 14px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                
+            }
+            .main123{
+                margin-left: 25%;
+                margin-top: 5%;
+                font-weight: bolder;
+                font-size: 40px;
+            }
+        
+            #img{
+              padding: 10px;
+              height: 130px;
+              width: 95%;
+              object-fit: scale-down;
+            }
+            * {
+                box-sizing: border-box;
+              }
+              .column {
+                float: left;
+                padding: 10px;
+                height: 150px; 
+              }
+              
+              .left {
+                width: 30%;
+              }
+              .right{
+                width: 10%;
+              }
+              
+              .middle {
+                margin-top: 10px;
+                margin-left: 20px;
+                width: 50%;
+                line-height: 1px;
+              }
+              .row:after {
+                content: "";
+                display: table;
+                clear: both;
+              }
+              .part{
+                  margin-left: 300px;
+                  margin-right: 200px;
+              }
+              
+        #event_name{
+          font-size: 18px;
+          font-weight: bold;
+        }
+        .table1{
+          margin-top: 90%;
+        
+        }
+        .fa {
+          font-size: 20px;
+          cursor: pointer;
+          user-select: none;
+        }
+        
+        .fa:hover {
+          color: darkblue;
+        }
+        
+    </style>
+</head>
+<body>
+    <hr>
+    <table class="table">
+        <tr>
+            <th>
+                <P id="logo">Eventbrite</P>
+            </th>
+            <th><div class="space1"></div></th>
+            <th>
+                <i class="fa fa-search" style="color:grey"></i>
+            </th>
+            <th>
+                <input type="text" placeholder="Search..." style="width: 200px;">
+            </th>
+            <th><div class="space"></div></th>
+            <th><a href="{% url 'browser' %}" id="browseevent">Browse Events</a></th>
+            <th><div class="space1"></div></th>
+            <th>
+                <div class="dropdown">
+                    <button class="dropbtn">Host An Event</button>
+                    <div class="dropdown-content">
+                      <a href="{% url 'eventhost' %}">Host An Event</a>
+                      
+                    </div>
+                  </div>
+            </th>
+            <th><div class="space1"></div></th>
+            <th>               
+            </th>
+        </tr>
+    </table>
+    <div class="main123">
+        <p>Events</p>
+    </div>
+    
+{% for evnt in evnts %}
+      <div class="part">
+          <div class="row" >
+              <div class="column left" >
+                <div style="background-image: url({{evnt.img.url}});padding:10px;width:110%;height:150px;object-fit:scale-down;background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;">
+                </div>
+              </div>
+              <div class="column middle" >
+              <p id="event_name">{{evnt.event_name}}</p>
+              <p> {{evnt.date}},{{evnt.time}}</p>
+              <p>${{evnt.price}}</p>
+              <a href="{{evnt.link}}" target="_blank"><button class="btn btn-secondary btn-block">Visit Website</button></a> 
+              
+              </div>
+              <div class="column right">
+                  <table class="table1">
+                      <tr>
+                      <th><i onclick="myFunction(this)" class="fa fa-thumbs-up"></i></th></tr>
+                      <script>
+                        function myFunction(x) {
+                          x.classList.toggle("fa-thumbs-down");
+                        }
+                      </script>
+                  </table>
+              </div>
+          </div>
+      </div>
+      <br>
+   {% endfor %}
+
+</body>
+</html>
